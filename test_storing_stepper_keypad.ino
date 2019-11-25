@@ -33,6 +33,7 @@ Keypad matrixKeypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 char User_input[Password_length];
 char TL_Password[Password_length] = "1311";
+char RL_Password[Password_length] = "2222";
 byte inputCounter;
 char pressedKey;
 int counter;
@@ -78,6 +79,27 @@ void loop()
       Serial.print("Hey this is inputCounter after clear ");
       Serial.println(inputCounter);
     }
+
+     if (!strcmp(User_input, RL_Password))
+    {
+      for (counter = 0; counter <= 1; counter++)
+      {
+       stepper.setSpeed(14);
+       stepper.step(2048);
+       Serial.println(counter);
+      }
+      Serial.print("Hey this is inputCounter ");
+      Serial.println(inputCounter);
+      clearData();
+      Serial.print("Hey this is User_input[Password_length] ");
+      Serial.println(User_input[Password_length]);
+      Serial.print("Hey this is pressedKey ");
+      Serial.println(pressedKey);
+      Serial.print("Hey this is counter ");
+      Serial.println(counter);
+      Serial.print("Hey this is inputCounter after clear ");
+      Serial.println(inputCounter);
+    }
     
 
       
@@ -93,6 +115,6 @@ void clearData()
   
   for(int eraseCounter = 0; eraseCounter <= inputCounter; eraseCounter++)
   {
-    User_input[eraseCounter] = 0;
+    User_input[eraseCounter] = '\0';
   }
 }
