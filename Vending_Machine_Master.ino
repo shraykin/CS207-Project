@@ -64,7 +64,7 @@ void setup()
   lcd.setCursor(2,0);
   lcd.print("Jeff's Machine");
   delay(5000);
-  lcd.clear;
+  lcd.clear();
   lcd.setCursor(1,3);
   lcd.print("Please enter")
   lcd.setCursor(2,3);
@@ -83,11 +83,11 @@ void loop()
   {
     User_input[inputCounter] = pressedKey; //stores user input into the array
     Serial.println(User_input[inputCounter]);
-    lcd.clear;
+    lcd.clear();
     lcd.setCursor(1,0);
     lcd.print("You entered");
     lcd.setCursor(2,0);
-    lcd.print(User_input);     //TEST THIS
+    lcd.print(User_input);     //TEST THIS!!!!!!!!!!!!!!!!!!!!!!
     inputCounter++;                        //moves to the next position in the array
   }
 
@@ -97,9 +97,14 @@ void loop()
 
     if (!strcmp(User_input, TL_Password)) /*compares the user input array with the password
                                           array for the top left*/
+    
+    lcd.clear();
+                                   
     {
       for (forLoopCounter = 0; forLoopCounter < 1; forLoopCounter++)
       {
+       lcd.setCursor(1,3);
+       lcd.print("Vending");
        stepperTL.setSpeed(14);
        stepperTL.step(2048);
        Serial.println(forLoopCounter);
@@ -121,6 +126,9 @@ void loop()
     {
       for (forLoopCounter = 0; forLoopCounter < 1; forLoopCounter++)
       {
+       
+       lcd.setCursor(1,3);
+       lcd.print("Vending");
        stepperTR.setSpeed(14);
        stepperTR.step(2048);
        Serial.println(forLoopCounter);
@@ -142,6 +150,8 @@ void loop()
     {
       for (forLoopCounter = 0; forLoopCounter < 1; forLoopCounter++)
       {
+       lcd.setCursor(1,3);
+       lcd.print("Vending");
        stepperBL.setSpeed(14);
        stepperBL.step(2048);
        Serial.println(forLoopCounter);
@@ -163,6 +173,8 @@ void loop()
     {
       for (forLoopCounter = 0; forLoopCounter < 1; forLoopCounter++)
       {
+       lcd.setCursor(1,3);
+       lcd.print("Vending");
        stepperBR.setSpeed(14);
        stepperBR.step(2048);
        Serial.println(forLoopCounter);
@@ -191,6 +203,16 @@ void clearStorage()
   inputCounter = 0;
   Serial.print("inputCounter = ");
   Serial.println(inputCounter);
+
+  lcd.clear();
+  lcd.setCursor(1,4);
+  lcd.print("Thank You!");
+  delay(1000);
+  lcd.clear();
+  lcd.print("Please enter")
+  lcd.setCursor(2,3);
+  lcd.print("a password");
+  
   
   for(int eraseCounter = 0; eraseCounter <= inputCounter; eraseCounter++)
   {
