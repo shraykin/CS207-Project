@@ -12,7 +12,7 @@
 #include <Keypad.h>
 
 LiquidCrystal lcd(47, 48, 49, 50, 51, 52); //pin order for LCD screen
-//LiquidCrystal lcd(RS, E, D4, D5, D6, D7); pin order for LCD screen
+
 
 #define STEPS 2048 // the number of steps in one revolution of the stepper motor
   
@@ -38,9 +38,9 @@ char keys[ROWS][COLS] =
 
 };
 
-byte rowPins[ROWS] = {30, 31, 32, 33}; //black connect to the row pinouts of the keypad
+byte rowPins[ROWS] = {30, 31, 32, 33}; //connect to the row pinouts of the keypad
 
-byte colPins[COLS] = {34, 35, 36, 37}; // white connect to the column pinouts of the keypad
+byte colPins[COLS] = {34, 35, 36, 37}; //connect to the column pinouts of the keypad
 
 Keypad matrixKeypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
@@ -66,7 +66,7 @@ void setup()
   lcd.print("Hello welcome to");
   lcd.setCursor(2,1);
   lcd.print("Jeff's Machine");
-  delay(5000);
+  delay(3000);
   lcd.clear();
   lcd.setCursor(1,0);
   lcd.print("Please enter");
@@ -86,19 +86,16 @@ void loop()
     lcd.setCursor(0,0);
     lcd.print("You entered");
     lcd.setCursor(12,0);
-    lcd.print(User_input);     //TEST THIS!!!!!!!!!!!!!!!!!!!!!!
+    lcd.print(User_input);     
     inputCounter++;                        //moves to the next position in the array
   }
 
   if (inputCounter == Password_length-1) //when the user presses four keys on the keypad
   {
-    
+    lcd.clear();
 
     if (!strcmp(User_input, TL_Password)) /*compares the user input array with the password
-                                          array for the top left*/
-    
-    lcd.clear();
-                                   
+                                          array for the top left*/                              
     {
       for (forLoopCounter = 0; forLoopCounter < 1; forLoopCounter++)
       {
@@ -190,6 +187,8 @@ void loop()
       Serial.print("Hey this is inputCounter after clear ");
       Serial.println(inputCounter);
     }
+
+    clearStorage();
   }
 }
 
@@ -199,12 +198,18 @@ void clearStorage()
   Serial.print("inputCounter = ");
   Serial.println(inputCounter);
 
-  
-  
-  
   for(int eraseCounter = 0; eraseCounter <= inputCounter; eraseCounter++)
   {
-    User_input[eraseCounter] = '0'; /*goes to each address in the index and erases
+    User_input[eraseCounter] = '\0'; /*goes to each address in the index and erases
                                      the values*/
   }
+
+  lcd.clear();
+  lcd.setCursor(1,4);
+  lcd.print("Thank You!");
+  delay(1000);
+  lcd.clear();
+  lcd.print("Please enter");
+  lcd.setCursor(2,3);
+  lcd.print("a password");
 }
