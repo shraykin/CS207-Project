@@ -1,7 +1,22 @@
 /*
-  Homemade vending machine created by Jeffrey Li (200379600)
+  Homemade vending machine created by Jeffrey Li 
+  Created: November 3, 2019
+  Last modified: December 5, 2019
 
-  This program 
+  This program is for the use of a vending machine. An Arduino Mega 2560 is used to 
+  control the four stepper motors. A 4x4 keypad allows users to input keys into the
+  Arduino and an 1602 LCD display provides feedback to the user. Four passwords are
+  used to control which vending slot is activated. 
+
+  Parts List
+-1602 LCD display screen
+-4x4 Matrix Keypad
+-4x 28BYJ-48 stepper motor
+-4x ULN2003 driver
+-10k potentiometer
+-Jumper wires
+-Arduino Mega 2560
+
 
 */
 
@@ -99,104 +114,68 @@ void loop()
     {
       for (forLoopCounter = 0; forLoopCounter < 1; forLoopCounter++)
       {
-       lcd.setCursor(1,3);
+       lcd.setCursor(3,1);
        lcd.print("Vending");
        stepperTL.setSpeed(14);
        stepperTL.step(-2048);
-       Serial.println(forLoopCounter);
       }
-      Serial.print("Hey this is inputCounter ");
-      Serial.println(inputCounter);
+      
       clearStorage();
-      Serial.print("Hey this is User_input[Password_length] ");
-      Serial.println(User_input[Password_length]);
-      Serial.print("Hey this is pressedKey ");
-      Serial.println(pressedKey);
-      Serial.print("Hey this is forLoopCounter ");
-      Serial.println(forLoopCounter);
-      Serial.print("Hey this is inputCounter after clear ");
-      Serial.println(inputCounter);
     }
 
-    if (!strcmp(User_input, TR_Password)) //compares the user input to top right
+    else if (!strcmp(User_input, TR_Password)) //compares the user input to top right
     {
       for (forLoopCounter = 0; forLoopCounter < 1; forLoopCounter++)
       {
        
-       lcd.setCursor(1,3);
+       lcd.setCursor(3,1);
        lcd.print("Vending");
        stepperTR.setSpeed(14);
        stepperTR.step(-2048);
-       Serial.println(forLoopCounter);
       }
-      Serial.print("Hey this is inputCounter ");
-      Serial.println(inputCounter);
+      
       clearStorage();
-      Serial.print("Hey this is User_input[Password_length] ");
-      Serial.println(User_input[Password_length]);
-      Serial.print("Hey this is pressedKey ");
-      Serial.println(pressedKey);
-      Serial.print("Hey this is forLoopCounter ");
-      Serial.println(forLoopCounter);
-      Serial.print("Hey this is inputCounter after clear ");
-      Serial.println(inputCounter);
     }
 
-    if (!strcmp(User_input, BL_Password)) //compares the user input to bottom left
+    else if (!strcmp(User_input, BL_Password)) //compares the user input to bottom left
     {
       for (forLoopCounter = 0; forLoopCounter < 1; forLoopCounter++)
       {
-       lcd.setCursor(1,3);
+       lcd.setCursor(3,1);
        lcd.print("Vending");
        stepperBL.setSpeed(14);
        stepperBL.step(-2048);
-       Serial.println(forLoopCounter);
       }
-      Serial.print("Hey this is inputCounter ");
-      Serial.println(inputCounter);
+     
       clearStorage();
-      Serial.print("Hey this is User_input[Password_length] ");
-      Serial.println(User_input[Password_length]);
-      Serial.print("Hey this is pressedKey ");
-      Serial.println(pressedKey);
-      Serial.print("Hey this is forLoopCounter ");
-      Serial.println(forLoopCounter);
-      Serial.print("Hey this is inputCounter after clear ");
-      Serial.println(inputCounter);
+     
     }
 
-    if (!strcmp(User_input, BR_Password)) //compares the user input to bottom right
+    else if (!strcmp(User_input, BR_Password)) //compares the user input to bottom right
     {
       for (forLoopCounter = 0; forLoopCounter < 1; forLoopCounter++)
       {
-       lcd.setCursor(1,3);
+       lcd.setCursor(3,1);
        lcd.print("Vending");
        stepperBR.setSpeed(14);
        stepperBR.step(-2048);
-       Serial.println(forLoopCounter);
       }
-      Serial.print("Hey this is inputCounter ");
-      Serial.println(inputCounter);
+      
       clearStorage();
-      Serial.print("Hey this is User_input[Password_length] ");
-      Serial.println(User_input[Password_length]);
-      Serial.print("Hey this is pressedKey ");
-      Serial.println(pressedKey);
-      Serial.print("Hey this is forLoopCounter ");
-      Serial.println(forLoopCounter);
-      Serial.print("Hey this is inputCounter after clear ");
-      Serial.println(inputCounter);
+
     }
 
-    clearStorage();
+    else
+    {
+      clearRetry();
+    }
+ 
   }
 }
 
 void clearStorage()
 {
   inputCounter = 0;
-  Serial.print("inputCounter = ");
-  Serial.println(inputCounter);
 
   for(int eraseCounter = 0; eraseCounter <= inputCounter; eraseCounter++)
   {
@@ -205,11 +184,34 @@ void clearStorage()
   }
 
   lcd.clear();
-  lcd.setCursor(1,4);
+  lcd.setCursor(0,0);
   lcd.print("Thank You!");
   delay(1000);
   lcd.clear();
+  lcd.setCursor(1,0);
   lcd.print("Please enter");
-  lcd.setCursor(2,3);
+  lcd.setCursor(2,1);
+  lcd.print("a password");
+}
+
+void clearRetry()
+{
+  
+  inputCounter = 0;
+
+  for(int eraseCounter = 0; eraseCounter <= inputCounter; eraseCounter++)
+  {
+    User_input[eraseCounter] = '\0'; /*goes to each address in the index and erases
+                                     the values*/
+  }
+
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Please try again");
+  delay(1000);
+  lcd.clear();
+  lcd.setCursor(1,0);
+  lcd.print("Please enter");
+  lcd.setCursor(2,1);
   lcd.print("a password");
 }
