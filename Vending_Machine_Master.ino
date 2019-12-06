@@ -81,7 +81,7 @@ void setup()
   lcd.print("Hello welcome to");
   lcd.setCursor(2,1);
   lcd.print("Jeff's Machine");
-  delay(3000);
+  delay(4000);
   lcd.clear();
   lcd.setCursor(1,0);
   lcd.print("Please enter");
