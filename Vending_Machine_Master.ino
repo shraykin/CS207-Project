@@ -120,7 +120,7 @@ void loop()
        stepperTL.step(-2048);
       }
       
-      clearStorage();
+      clearStorage(); //clear input array when a correct password is entered
     }
 
     else if (!strcmp(User_input, TR_Password)) //compares the user input to top right
@@ -134,7 +134,7 @@ void loop()
        stepperTR.step(-2048);
       }
       
-      clearStorage();
+      clearStorage(); //clear input array when a correct password is entered
     }
 
     else if (!strcmp(User_input, BL_Password)) //compares the user input to bottom left
@@ -147,7 +147,7 @@ void loop()
        stepperBL.step(-2048);
       }
      
-      clearStorage();
+      clearStorage(); //clear input array when a correct password is entered
      
     }
 
@@ -161,13 +161,13 @@ void loop()
        stepperBR.step(-2048);
       }
       
-      clearStorage();
+      clearStorage(); //clear input array when a correct password is entered
 
     }
 
     else
     {
-      clearRetry();
+      clearRetry(); //clears input array when they input an incorrect password
     }
  
   }
